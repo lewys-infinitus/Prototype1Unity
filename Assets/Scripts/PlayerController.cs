@@ -10,11 +10,13 @@ public class PlayerController : MonoBehaviour
     private float verticalInput;
     private Rigidbody playerRb;
     [SerializeField] private float horsePower = 0;
+    [SerializeField] GameObject centreOfMass;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerRb.centerOfMass = centreOfMass.transform.position;
     }
 
     // Update is called once per frame
@@ -27,6 +29,6 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * Time.deltaTime * turnSpeed * horizontalInput);
 
         // Applying forward horsepower force
-        playerRb.AddForce(Vector3.forward * horsePower * verticalInput);
+        playerRb.AddRelativeForce(Vector3.forward * horsePower * verticalInput);
     }
 }
